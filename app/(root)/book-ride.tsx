@@ -5,8 +5,8 @@ import { Image, Text, View } from "react-native";
 import Payment from "@/components/Payment";
 import RideLayout from "@/components/RideLayout";
 import { icons } from "@/constants";
-import { formatTime } from "@/lib/utils";
 import { useDriverStore, useLocationStore } from "@/store";
+import React from "react";
 
 const BookRide = () => {
   const { user } = useUser();
@@ -16,6 +16,15 @@ const BookRide = () => {
   const driverDetails = drivers?.filter(
     (driver) => +driver.id === selectedDriver,
   )[0];
+
+  // Helper function to format time
+  const formatTime = (time: number) => {
+    if (time) {
+      const minutes = Math.round(time * 100) / 100; // Rounds time to 2 decimal places
+      return `${minutes} min`; // Returns time in a readable format
+    }
+    return "N/A"; // Fallback if no time is provided
+  };
 
   return (
     <StripeProvider
@@ -64,7 +73,7 @@ const BookRide = () => {
             <View className="flex flex-row items-center justify-between w-full border-b border-white py-3">
               <Text className="text-lg font-JakartaRegular">Pickup Time</Text>
               <Text className="text-lg font-JakartaRegular">
-                {formatTime(driverDetails?.time!)}
+                {formatTime(driverDetails?.time!)} {/* Calling the formatTime function */}
               </Text>
             </View>
 

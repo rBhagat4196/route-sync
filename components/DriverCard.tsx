@@ -1,11 +1,18 @@
 import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-
 import { icons } from "@/constants";
-import { formatTime } from "@/lib/utils";
 import { DriverCardProps } from "@/types/type";
 
 const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
+  // Helper function to format time
+  const formatTime = (time: number) => {
+    if (time) {
+      const minutes = Math.round(time * 100) / 100; // Rounds time to 2 decimal places
+      return `${minutes} min`; // Returns time in a readable format
+    }
+    return "N/A"; // Fallback if no time is provided
+  };
+
   return (
     <TouchableOpacity
       onPress={setSelected}
@@ -41,7 +48,7 @@ const DriverCard = ({ item, selected, setSelected }: DriverCardProps) => {
           </Text>
 
           <Text className="text-sm font-JakartaRegular text-general-800">
-            {formatTime(item.time!)}
+            {formatTime(item.time!)} {/* Calling the formatTime function */}
           </Text>
 
           <Text className="text-sm font-JakartaRegular text-general-800 mx-1">

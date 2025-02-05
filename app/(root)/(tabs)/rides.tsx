@@ -6,6 +6,7 @@ import RideCard from "@/components/RideCard";
 import { images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import { Ride } from "@/types/type";
+import React from "react";
 
 const Rides = () => {
   const { user } = useUser();
@@ -16,6 +17,8 @@ const Rides = () => {
     error,
   } = useFetch<Ride[]>(`/(api)/ride/${user?.id}`);
 
+  // console.log(recentRides);
+  // console.log(recentRides[0])
   return (
     <SafeAreaView className="flex-1 bg-white">
       <FlatList
